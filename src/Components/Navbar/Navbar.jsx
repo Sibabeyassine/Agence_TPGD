@@ -1,50 +1,49 @@
-// eslint-disable-next-line no-unused-vars
-import React from "react";
-import "./Navbar.css";
-
+import PropTypes from "prop-types";
 import toogle_dark from "../../assets/day.png";
-import logo_light from "../../assets/logo-black.png";
-import logo_dark from "../../assets/logo-white.png";
+import T from "../../assets/T.png";
+
 import toogle_light from "../../assets/night.png";
 import search_icon_dark from "../../assets/search-b.png";
 import search_icon_light from "../../assets/search-w.png";
+import "./Navbar.css";
 
-const Navbar = ({ theme, settheme }) => {
-  const toggle_mode = () => {
-    theme == "light" ? settheme("dark") : settheme("light");
+const Navbar = ({ theme, setTheme }) => {
+  // Fonction pour changer le thème
+  const toggleTheme = () => {
+    setTheme(theme === "light" ? "dark" : "light");
   };
-  return (
-    <div className="navbar">
-      <img
-        src={theme == "light" ? logo_light : logo_dark}
-        alt=""
-        className="logo"
-      />
-      <ul>
-        <li>Home</li>
-        <li>Products</li>
-        <li>Features</li>
-        <li>About</li>
-      </ul>
 
+  return (
+    <nav className={`navbar ${theme}`}>
+      <div className="logo">
+        <img src={theme == "light" ? T : T} alt="" />
+      </div>
+      <ul>
+        <li>Accueil</li>
+        <li>À propos</li>
+        <li>Contact</li>
+      </ul>
       <div className="search-box">
-        <input type="text" placeholder="Search" />
+        <input type="text" placeholder="Recherche..." />
         <img
           src={theme == "light" ? search_icon_light : search_icon_dark}
-          alt=""
+          alt="search"
         />
       </div>
-
       <img
-        onClick={() => {
-          toggle_mode();
-        }}
-        src={theme == "light" ? toogle_light : toogle_dark}
-        alt=""
+        src={theme === "light" ? toogle_light : toogle_dark}
+        alt="toggle theme"
         className="Toggle-icon"
+        onClick={toggleTheme}
       />
-    </div>
+    </nav>
   );
+};
+
+// Validation des props
+Navbar.propTypes = {
+  theme: PropTypes.string.isRequired,
+  setTheme: PropTypes.func.isRequired,
 };
 
 export default Navbar;
